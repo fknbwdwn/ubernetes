@@ -27,7 +27,7 @@ metadata:
     app: hello-world
 spec:
   strategy:
-    type: Recreate
+    type: RollingUpdate
   template:
     metadata:
       labels:
