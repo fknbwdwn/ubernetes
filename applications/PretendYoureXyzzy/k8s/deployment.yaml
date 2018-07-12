@@ -4,7 +4,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: oh-the-humanity
-  namespace: default
+  namespace: ubernetes
   labels:
     app: oh-the-humanity
 spec:
@@ -22,7 +22,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: oh-the-humanity
-  namespace: default
+  namespace: ubernetes
   labels:
     app: oh-the-humanity
 spec:
