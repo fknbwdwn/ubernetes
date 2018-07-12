@@ -14,7 +14,7 @@ node {
 
     stage "Build"
 
-        sh "docker build -t ${imageName} -f applications/oh-the-humanity/Dockerfile applications/oh-the-humanity"
+        sh "docker build -t ${imageName} -f applications/PretendYoureXyzzy/Dockerfile applications/PretendYoureXyzzy"
 
     stage "Push"
 
@@ -22,7 +22,7 @@ node {
 
     stage "Deploy"
 
-        sh "sed 's#127.0.0.1:30400/hello-world:latest#'$BUILDIMG'#' applications/oh-the-humanity/k8s/deployment.yaml | kubectl apply -f -"
+        sh "sed 's#127.0.0.1:30400/oh-the-humanity:latest#'$BUILDIMG'#' applications/PretendYoureXyzzy/k8s/deployment.yaml | kubectl apply -f -"
         sh "kubectl rollout status deployment/oh-the-humanity"
 
 }
