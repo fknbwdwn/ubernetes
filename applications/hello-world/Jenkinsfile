@@ -15,19 +15,20 @@ node {
     stage "Build"
 
         sh "docker build -t ${imageName} -f applications/hello-world/Dockerfile applications/hello-world"
-
+	slackSend color: "#439FE0", message: "Build started: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
     stage "Push"
 
         sh "docker push ${imageName}"
-
     stage "Smoke Test"
 
         sh "echo 'some bullshit here'"
+        slackSend color: "#439FE0", message: "Build pending approval: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
         input "Deploy to production?"
 
     stage "Deploy"
 
         sh "sed 's#127.0.0.1:30400/hello-world:latest#'$BUILDIMG'#' applications/hello-world/k8s/deployment.yaml | kubectl apply -f -"
         sh "kubectl rollout status deployment/hello-world"
+        slackSend color: "#439FE0", message: "Build completed: ${env.JOB_NAME} ${env.BUILD_NUMBER}" 
 
 }
