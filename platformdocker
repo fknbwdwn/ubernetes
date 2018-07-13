@@ -1,0 +1,52 @@
+FROM php:7.0-apache
+#-> # Install dependencies
+RUN apt-get update && apt-get install -y \
+        curl \
+        git \
+        libedit-dev \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libmemcached-dev \
+        libpng-dev \
+        libpspell-dev \
+        libreadline-dev \
+        librecode-dev \
+        s3cmd \
+#-> # Install PHP extensions from source
+    && docker-php-ext-install -j$(nproc) \
+        calendar \
+        exif \
+        gd \
+        gettext \
+        mcrypt \
+        mysqli \
+        pcntl \
+        pspell \
+        readline \
+        recode \
+        shmop \
+        soap \
+        sockets \
+        sysvmsg \
+        sysvsem \
+        sysvshm \
+        tidy \
+        wddx \
+        xmlrpc \
+        xsl \
+#-> # Install PHP extensions from PECL
+    && pecl install apcu-5.1.12 \
+    && pecl install igbinary-2.0.7 \
+    && pecl install intl-3.0.0 \
+    && pecl install memcached-3.0.4 \
+    && pecl install msgpack-2.0.2 \
+    && pecl install redis-4.1.0 \
+#-> # Enable PHP extensions installed from PECL
+    && docker-php-ext-enable \
+        apcu \
+        igbinary \
+        intl \
+        memcached \
+        msgpack \
+        redis
