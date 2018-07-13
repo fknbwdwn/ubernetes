@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
         libpspell-dev \
         libreadline-dev \
         librecode-dev \
+        libxml2-dev \
         s3cmd \
 #-> # Install PHP extensions from source
     && docker-php-ext-install -j$(nproc) \
